@@ -15,7 +15,7 @@ import { CategoryRoutes } from './src/category/category.route';
 
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
-const port = 3005;
+const port = 80;
 const routes: Array<CommonRoutesConfig> = [];
 const debugLog: debug.IDebugger = debug('app');
 
