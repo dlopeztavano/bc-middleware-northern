@@ -14,6 +14,9 @@ export class ProductRoutes extends CommonRoutesConfig {
     configureRoutes() {
         this.app.route(`/products/all`)
             .get([authConfig.ensureToken, productController.listProducts])
+
+        this.app.route(`/products`)
+            .get([authConfig.ensureToken, productController.listProductsBySKU])
             
         return this.app;
     }
