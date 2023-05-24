@@ -10,7 +10,7 @@ class AuthConfig {
         if(typeof bearerHeader !== 'undefined') {
             const bearer = bearerHeader.split(" ")
             const bearerToken = bearer[1]
-            jwt.verify(bearerToken, 'secretkey', (err, result) => {
+            jwt.verify(bearerToken, 'secretkey', (err:any, result:any) => {
                 if(err) { 
                     res.sendStatus(403) 
                 }else{ 

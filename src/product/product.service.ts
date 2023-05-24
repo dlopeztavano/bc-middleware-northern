@@ -16,7 +16,25 @@ class ProductService{
         try{
             
             const params = req.query;
-            const { data, status } = await axios.get<any>(
+            const productIds:any = params['id:in'];
+
+
+            const productArray = productIds.split(',');
+
+            const size = 10; const arrayOfArrays = [];
+            for (let i=0; i<productArray.length; i+=size) {
+                arrayOfArrays.push(productArray.slice(i,i+size));
+            }
+      
+            let results:any = {};
+            results.data = [];
+
+            for (let i=0; i<arrayOfArrays.length; i++) {
+              
+              const sliceOfProducts = arrayOfArrays[i].join(','); 
+              params['id:in'] = sliceOfProducts;
+
+              const { data, status } = await axios.get<any>(
                 this.endpoint+'catalog/products',
                 {
                   headers: {
@@ -26,8 +44,17 @@ class ProductService{
                   params: params
                 },
               );
-              return data;
-        
+
+             
+              const arr = data.data;
+              for (let j=0; j<arr.length; j++) {
+                results.data.push(arr[j]);
+              }
+            }
+
+            return results;
+
+
             }catch(error){
 
                 if(axios.isAxiosError(error)) {
